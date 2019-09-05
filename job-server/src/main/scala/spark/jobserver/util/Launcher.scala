@@ -28,8 +28,6 @@ abstract class Launcher(config: Config, sparkLauncher: SparkLauncher, enviornmen
     protected final val baseJavaOPTS = getEnvironmentVariable("JAVA_OPTS_BASE")
     protected val launcher = sparkLauncher
 
-    protected def addCustomArguments()
-
     final def start(): (Boolean, String) = {
       validate() match {
         case (false, error) => return (false, error)
@@ -51,6 +49,8 @@ abstract class Launcher(config: Config, sparkLauncher: SparkLauncher, enviornmen
           (false, err.getMessage)
       }
     }
+
+  protected def addCustomArguments()
 
     protected def getEnvironmentVariable(name: String, default: String = ""): String = {
       enviornment.get(name, default)
